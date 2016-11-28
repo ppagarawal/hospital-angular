@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Hospital Management System</title>
+		<link rel="shortcut icon" href="favicon.ico" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+</head>
+
+<body>
+    <div ng-app="hospital" ng-controller="hospitalcontroller">
+        <p>
+            <h2 align="center">Patient Information</h2>
+        </p>
+        <form>
+            <p style="text-indent: 20em;">First Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text" ng-model="patient_first_name" />
+            </p>
+            <br />
+            <p style="text-indent: 20em;">Last Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text" ng-model="patient_last_name" />
+            </p>
+            <br />
+            <p style="text-indent: 20em;">Age &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text" ng-model="age" />
+            </p>
+            <br />
+            <p style="text-indent: 20em;">Date of birth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text" ng-model="dob" />
+            </p>
+            <br />
+            <p style="text-indent: 20em;">Gender&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select ng-model="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </p>
+            <br />
+            <p style="text-indent: 20em;">Phone Number&nbsp;&nbsp;&nbsp;
+                <input type="text" ng-model="phone_number" />
+            </p>
+            <br />
+            <p style="text-indent: 20em;">Comments&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text" ng-model="comments" />
+            </p>
+            <br />
+            <p style="text-indent: 32em;">
+                <input type="button" ng-click="insertdata()" value="Submit" />
+                </br>
+            </p>
+        </form>
+        <script>
+            var app = angular.module('hospital', []);
+            app.controller('hospitalcontroller', function($scope, $http) {
+                $scope.insertdata = function() {
+                    $http.post("insert.php", {
+                            'patient_first_name': $scope.patient_first_name,
+                            'patient_last_name': $scope.patient_last_name,
+                            'age': $scope.age,
+                            'dob': $scope.dob,
+                            'gender': $scope.gender,
+                            'phone_number': $scope.phone_number,
+                            'comments': $scope.comments
+                        })
+                        .success(function(data, status, headers, config) {
+                            console.log("Data inserted successfully");
+                        });
+                }
+            });
+        </script>
+    </div>
+</body>
+
+</html>
