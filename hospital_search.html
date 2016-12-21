@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Hospital Management System</title>
+	<link rel="shortcut icon" href="favicon.ico" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+</head>
+
+<body>
+<h2> <p style="text-indent: 20em;"> Patient Search System</p></h2>
+ <div ng-app="myapp" ng-controller="searchpatient">
+	 <p style="text-indent: 28em;">Name of the patient  <input type = "text" ng-model = "name" /></p>
+		<ul>
+			 <p style="text-indent: 20em;"><li ng-repeat="x in FirstName | filter:name">{{ x.FirstName }} {{ x.LastName }}</p></li>
+		</ul>
+
+</div>
+
+<script>
+var app = angular.module('myapp', []);
+app.controller('searchpatient', function($scope, $http) {
+    $http.get("/hospitalmanagement/search.php")
+    .then(function (response) {$scope.FirstName = response.data.records;});
+});
+</script>
+
+</body>
+</html>
